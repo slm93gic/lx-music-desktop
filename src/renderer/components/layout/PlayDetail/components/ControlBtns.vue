@@ -108,24 +108,25 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：详情工具按钮对齐主色语言，无业务变更 */
 .footerLeftControlBtns {
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 
   button {
-    width: 20px;
-    color: var(--color-font);
+    width: 22px;
+    color: rgba(0, 0, 0, 0.55);
   }
 
   .footerLeftControlBtn {
     // width: 18px;
     // height: 18px;
-    opacity: .5;
+    opacity: .55;
     cursor: pointer;
-    transition: opacity @transition-normal;
+    transition: opacity @transition-normal, color @transition-normal;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -134,17 +135,17 @@ export default {
     padding: 0;
 
     &:hover {
-      opacity: .9;
+      opacity: .95;
     }
 
     &.active {
       color: var(--color-primary);
-      opacity: .8;
+      opacity: .9;
     }
   }
 
   .lrcBtn {
-    width: 20px;
+    width: 22px;
   }
 }
 

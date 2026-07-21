@@ -1,34 +1,25 @@
 <template>
+  <!-- 视觉展示调整：底栏布局仿 YesPlayMusic（左信息/中控制/右工具/底细进度），无业务变更 -->
   <div :class="$style.player">
-    <div :class="$style.picContent" :aria-label="$t('player__pic_tip')" @contextmenu="handleToMusicLocation" @click="showPlayerDetail">
-      <img v-if="musicInfo.pic" :src="musicInfo.pic" decoding="async" @error="imgError">
-      <div v-else :class="$style.emptyPic">L<span>X</span></div>
-    </div>
-    <div :class="$style.infoContent">
-      <div :class="$style.title" :aria-label="title + $t('copy_tip')" @click="handleCopy(title)">
-        {{ title }}
+    <div :class="$style.left">
+      <div :class="$style.picContent" :aria-label="$t('player__pic_tip')" @contextmenu="handleToMusicLocation" @click="showPlayerDetail">
+        <img v-if="musicInfo.pic" :src="musicInfo.pic" decoding="async" @error="imgError">
+        <div v-else :class="$style.emptyPic">L<span>X</span></div>
       </div>
-      <div :class="$style.status">{{ statusText }}</div>
-    </div>
-    <!-- <div :class="$style.timeContainer">
-      <div :class="$style.timeContent">
-        <span>{{ nowPlayTimeStr }}</span>
-        <span style="margin: 0 1px;">/</span>
-        <span>{{ maxPlayTimeStr }}</span>
-        <div :class="$style.progress">
-          <common-progress-bar v-if="!isShowPlayerDetail" :class-name="$style.progressBar" :progress="progress" :handle-transition-end="handleTransitionEnd" :is-active-transition="isActiveTransition" />
+      <div :class="$style.infoContent">
+        <div :class="$style.title" :aria-label="title + $t('copy_tip')" @click="handleCopy(title)">
+          {{ title }}
         </div>
+        <div :class="$style.status">{{ statusText }}</div>
       </div>
-    </div> -->
-    <play-progress />
-    <control-btns />
+    </div>
     <div :class="$style.playBtnContent">
       <div :class="$style.playBtn" :aria-label="$t('player__prev')" @click="playPrev()">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 1024 1024" space="preserve">
           <use xlink:href="#icon-prevMusic" />
         </svg>
       </div>
-      <div :class="$style.playBtn" :aria-label="isPlay ? $t('player__pause') : $t('player__play')" @click="togglePlay">
+      <div :class="[$style.playBtn, $style.playMain]" :aria-label="isPlay ? $t('player__pause') : $t('player__play')" @click="togglePlay">
         <svg v-if="isPlay" version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" height="100%" viewBox="0 0 1024 1024" space="preserve">
           <use xlink:href="#icon-pause" />
         </svg>
@@ -42,6 +33,17 @@
         </svg>
       </div>
     </div>
+    <div :class="$style.right">
+      <control-btns />
+    </div>
+    <div v-if="!isShowPlayerDetail" :class="$style.bottomProgress">
+      <common-progress-bar
+        :class-name="$style.progressBar"
+        :progress="progress"
+        :handle-transition-end="handleTransitionEnd"
+        :is-active-transition="isActiveTransition"
+      />
+    </div>
   </div>
 </template>
 
@@ -50,7 +52,6 @@ import { computed } from '@common/utils/vueTools'
 import { useRouter } from '@common/utils/vueRouter'
 import { clipboardWriteText } from '@common/utils/electron'
 import ControlBtns from './ControlBtns.vue'
-import PlayProgress from './PlayProgress.vue'
 import usePlayProgress from '@renderer/utils/compositions/usePlayProgress'
 // import { lyric } from '@renderer/core/share/lyric'
 import {
@@ -74,7 +75,6 @@ export default {
   name: 'CorePlayBar',
   components: {
     ControlBtns,
-    PlayProgress,
   },
   setup() {
     const router = useRouter()
@@ -150,18 +150,18 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：YesPlayMusic 三区底栏 + 底部细进度，无业务变更 */
 .player {
   position: relative;
   height: @height-player;
-  border-top: 1px solid var(--color-primary-alpha-900);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
-  display: flex;
-  flex-flow: row nowrap;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   contain: strict;
-  padding: 6px;
+  padding: 10px 18px 14px;
   z-index: 2;
-  // box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   * {
     box-sizing: border-box;
   }
@@ -172,67 +172,70 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--color-main-background);
-    opacity: .9;
+    background: @gradient-player;
+    opacity: 1;
     z-index: -1;
+    backdrop-filter: blur(20px);
   }
 }
 
-.picContent {
-  height: 100%;
-  aspect-ratio: 1 / 1;
+.left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  max-width: 360px;
+  justify-self: start;
+}
 
-  // color: var(--color-primary);
-  // transition: @transition-normal;
-  // transition-property: color;
+.right {
+  display: flex;
+  align-items: center;
+  justify-self: end;
+}
+
+.picContent {
+  height: 46px;
+  width: 46px;
   flex: none;
   opacity: 1;
-  transition: opacity @transition-fast;
-  // transition-property: opacity;
+  transition: opacity @transition-fast, transform @transition-fast;
   display: flex;
   justify-content: center;
-  // align-items: center;
   cursor: pointer;
 
   &:hover {
-    opacity: .8;
+    opacity: .9;
   }
 
-  // svg {
-  //   fill: currentColor;
-  // }
   img {
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     max-width: 100%;
     max-height: 100%;
-    transition: @transition-normal;
-    transition-property: border-color;
-    // border-radius: 50%;
-    border-radius: @radius-border;
-    // border: 2px solid @color-theme_2-background_1;
+    border-radius: 8px;
+    object-fit: cover;
   }
 
   .emptyPic {
-    background-color: var(--color-primary-light-900-alpha-200);
-    border-radius: @radius-border;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 8px;
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-primary-light-400-alpha-200);
+    color: rgba(0, 0, 0, 0.25);
     user-select: none;
-    font-size: 20px;
+    font-size: 14px;
     font-family: Consolas, "Courier New", monospace;
 
     span {
-      padding-left: 3px;
+      padding-left: 2px;
     }
   }
 }
 
 .infoContent {
-  padding: 0 10px;
+  padding: 0 12px;
   flex: auto;
   display: flex;
   flex-flow: column nowrap;
@@ -241,68 +244,23 @@ export default {
   font-size: 13px;
   color: var(--color-font);
   min-width: 0;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .title {
   max-width: 100%;
-  font-size: 12px;
-  color: var(--color-font-label);
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.88);
   .mixin-ellipsis-1();
 }
 .status {
-  padding-top: 3px;
-  height: 23px;
+  padding-top: 2px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.42);
   .mixin-ellipsis-1();
   max-width: 100%;
 }
-
-// .timeContainer {
-//   flex: none;
-//   padding: 15px 0;
-//   &:hover {
-//     .progress {
-//       opacity: 1;
-//     }
-//   }
-// }
-// .timeContent {
-//   // width: 30%;
-//   position: relative;
-//   // flex: none;
-//   color: var(--color-300);
-//   font-size: 13px;
-//   // padding-left: 10px;
-//   // display: flex;
-//   // flex-flow: column nowrap;
-//   // align-items: center;
-//   padding-bottom: 3px;
-// }
-// .progress {
-//   position: absolute;
-//   top: 100%;
-//   left: 0;
-//   width: 100%;
-//   flex: auto;
-//   // width: 160px;
-//   // position: relative;
-//   // padding-bottom: 6px;
-//   // margin: 0 8px;
-//   padding: 2px 0;
-//   height: 8px;
-//   transition: opacity @transition-normal;
-//   opacity: .24;
-
-//   .progressBar {
-//     height: 2px;
-//     border-radius: 0;
-//   }
-// }
-// .time {
-//   display: flex;
-//   flex-flow: row nowrap;
-//   justify-content: space-between;
-// }
 
 .playBtnContent {
   height: 100%;
@@ -310,31 +268,54 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  padding-left: 10px;
-  padding-right: 15px;
-  gap: 18px;
+  justify-content: center;
+  gap: 22px;
+  justify-self: center;
 }
 
 .playBtn {
   flex: none;
-  height: 52%;
-  // margin-top: -2px;
+  height: 22px;
+  width: 22px;
   transition: @transition-fast;
-  transition-property: color, opacity;
-  color: var(--color-button-font);
+  transition-property: color, opacity, transform;
+  color: rgba(0, 0, 0, 0.72);
   opacity: 1;
   cursor: pointer;
 
   svg {
     fill: currentColor;
-    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.2));
+    filter: none;
   }
   &:hover {
-    opacity: 0.8;
+    opacity: 0.75;
+    transform: scale(1.08);
   }
   &:active {
     opacity: 0.6;
+    transform: scale(0.96);
   }
+}
+
+.playMain {
+  height: 28px;
+  width: 28px;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+.bottomProgress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  padding: 0;
+  z-index: 3;
+}
+
+.progressBar {
+  height: 100%;
+  border-radius: 0 !important;
 }
 
 </style>

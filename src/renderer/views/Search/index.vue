@@ -121,9 +121,11 @@ export default {
 </script>
 
 <style lang="less" module>
+/* 视觉展示调整：搜索页顶栏与主区留白，无业务变更 */
 .container {
   display: flex;
   flex-flow: column nowrap;
+  padding: 8px 0 0;
 }
 
 .header {
@@ -132,11 +134,15 @@ export default {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .main {
   position: relative;
   flex: auto;
   // min-height: 0;
+  padding: 8px 8px 0;
 }
 </style>

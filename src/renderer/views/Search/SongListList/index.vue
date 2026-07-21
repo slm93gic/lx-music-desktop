@@ -55,13 +55,15 @@ const togglePage = (page: number) => {
 
 
 <style lang="less" module>
+/* 视觉展示调整：搜索歌单结果容器留白，无业务变更 */
 .container {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  padding-top: 5px;
+  padding: 8px 8px 0;
+  box-sizing: border-box;
 }
 
 // .list {

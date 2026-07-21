@@ -449,15 +449,16 @@ input, textarea {
 }
 
 
+/* 视觉展示调整：歌曲列表加大行距与留白，减少拥挤感，无业务变更 */
 .thead {
-  border-bottom: var(--color-list-header-border-bottom);
-  padding-right: 6px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding-right: 8px;
   flex: none;
 
   .num {
     .nobreak();
     .center();
-    color: var(--color-font-label);
+    color: rgba(0, 0, 0, 0.35);
   }
   // box-shadow: 0 0 2px var(--color-primary-dark-500-alpha-800);
   // position: relative;
@@ -471,9 +472,13 @@ table {
   color: var(--color-font);
   th {
     font-size: 12px;
+    font-weight: 600;
     text-align: left;
-    line-height: 38px;
-    padding: 0 6px;
+    line-height: 42px;
+    padding: 0 12px;
+    color: rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.02em;
+    text-transform: none;
   }
 }
 
@@ -491,34 +496,37 @@ table {
     flex-flow: row nowrap;
     align-items: center;
     // border-top: 1px solid rgba(0, 0, 0, 0.12);
-    transition: 0.2s ease;
-    transition-property: background-color, color;
+    transition: background-color @transition-fast, color @transition-fast;
     // border-bottom: 1px solid @color-theme_2-line;
     box-sizing: border-box;
-    font-size: 12px;
+    font-size: 14px;
+    border-radius: 10px;
+    margin: 2px 8px;
+    padding: 0 4px;
 
     &:hover {
-      background-color: var(--color-primary-background-hover);
+      background-color: rgba(0, 0, 0, 0.035);
 
       // .list-item-cell-action {
       //   display: block;
       // }
     }
     &.active {
-      background-color: var(--color-primary-background-active);
+      background-color: var(--color-primary-alpha-900);
+      color: var(--color-primary);
     }
     &.selected {
-      background-color: var(--color-primary-background-hover);
+      background-color: rgba(0, 0, 0, 0.05);
     }
     &.disabled {
-      opacity: .5;
+      opacity: .45;
     }
     .list-item-cell {
       flex: none;
-      padding: 0 6px;
+      padding: 0 12px;
       position: relative;
       // transition:  0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      line-height: 16px;
+      line-height: 22px;
       vertical-align: middle;
       box-sizing: border-box;
       .mixin-ellipsis-1();
@@ -530,10 +538,10 @@ table {
       &.num, .num {
         .nobreak();
         .center();
-        padding-left: 3px;
-        padding-right: 3px;
-        font-size: 11px;
-        color: var(--color-font-label);
+        padding-left: 4px;
+        padding-right: 4px;
+        font-size: 13px;
+        color: rgba(0, 0, 0, 0.35);
       }
 
       &.name {
@@ -543,6 +551,7 @@ table {
         white-space: initial;
         text-overflow: initial;
         align-items: center;
+        font-weight: 500;
 
         >.name {
           .mixin-ellipsis-1();

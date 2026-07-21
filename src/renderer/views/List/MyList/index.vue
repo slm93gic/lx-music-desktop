@@ -15,7 +15,11 @@
         </button>
       </div>
     </div>
-    <ul ref="dom_lists_list" class="scroll" :class="[$style.listsContent, { [$style.sortable]: isModDown }]">
+    <ul
+      ref="dom_lists_list"
+      class="scroll"
+      :class="[$style.listsContent, { [$style.sortable]: isModDown, [$style.maskLeft]: canScrollLeft, [$style.maskRight]: canScrollRight }]"
+    >
       <li
         class="default-list" :class="[$style.listsItem, {[$style.active]: defaultList.id == listId}, {[$style.clicked]: rightClickItemIndex == -2}, {[$style.fetching]: fetchingListStatus[defaultList.id]}]"
         :aria-label="$t(defaultList.name)" :aria-selected="defaultList.id == listId"
@@ -108,6 +112,7 @@ import useDarg from './useDarg'
 import useEditList from './useEditList'
 import useListScroll from './useListScroll'
 import useDuplicate from './useDuplicate'
+import useHorizontalAutoScroll from '@renderer/utils/compositions/useHorizontalAutoScroll'
 
 export default {
   name: 'MyLists',
@@ -129,6 +134,7 @@ export default {
 
     const dom_lists_list = ref(null)
     const rightClickItemIndex = ref(-10)
+    const { canScrollLeft, canScrollRight } = useHorizontalAutoScroll(dom_lists_list)
 
     const { handleImportList, handleExportList } = useShare()
     const { isShowListUpdateModal, handleUpdateSourceList } = useListUpdate()
@@ -243,6 +249,8 @@ export default {
       menuLocation,
       handleListToggle,
       isModDown,
+      canScrollLeft,
+      canScrollRight,
       hideMenu: handleMenuClick,
     }
   },
@@ -252,18 +260,29 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
-@lists-item-height: 36px;
+/* 视觉展示调整：我的列表侧栏改为顶部横向导航，无业务变更 */
+@lists-item-height: 34px;
 .lists {
   flex: none;
-  width: 16%;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
   display: flex;
   flex-flow: column nowrap;
+  background-color: transparent;
+  border-right: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 8px 16px 10px;
+  box-sizing: border-box;
 }
 .listHeader {
   position: relative;
   display: flex;
   flex-flow: row nowrap;
-  border-bottom: var(--color-list-header-border-bottom);
+  align-items: center;
+  border-bottom: none;
+  margin-bottom: 6px;
+  padding: 0 0 4px;
   &:hover {
     .listsAdd {
       opacity: 1;
@@ -272,28 +291,34 @@ export default {
 }
 .listsTitle {
   flex: auto;
-  font-size: 12px;
-  line-height: 38px;
-  padding: 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 34px;
+  padding: 0 4px;
+  letter-spacing: 0.01em;
+  color: rgba(0, 0, 0, 0.82);
   .mixin-ellipsis-1();
 }
 .headerBtns {
   flex: none;
   display: flex;
+  align-items: center;
+  gap: 2px;
 }
 .listsAdd {
   // position: absolute;
   // right: 0;
-  margin-top: 6px;
+  margin-top: 0;
   background: none;
-  height: 30px;
+  height: 28px;
+  width: 28px;
   border: none;
   outline: none;
-  border-radius: @radius-border;
+  border-radius: 8px;
   cursor: pointer;
-  opacity: .1;
-  transition: opacity @transition-normal;
-  color: var(--color-button-font);
+  opacity: .25;
+  transition: opacity @transition-normal, background-color @transition-fast;
+  color: rgba(0, 0, 0, 0.55);
   svg {
     vertical-align: bottom;
   }
@@ -301,13 +326,41 @@ export default {
     opacity: .7 !important;
   }
   &:hover {
-    opacity: .6 !important;
+    opacity: .85 !important;
+    background-color: rgba(0, 0, 0, 0.05);
   }
 }
 .listsContent {
-  flex: auto;
+  flex: none;
   min-width: 0;
-  overflow-y: scroll !important;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 6px;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 100%);
+  mask-image: linear-gradient(90deg, #000 0%, #000 100%);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &.maskRight {
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 calc(100% - 36px), transparent 100%);
+    mask-image: linear-gradient(90deg, #000 0%, #000 calc(100% - 36px), transparent 100%);
+  }
+  &.maskLeft {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 36px, #000 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 36px, #000 100%);
+  }
+  &.maskLeft.maskRight {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 36px, #000 calc(100% - 36px), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 36px, #000 calc(100% - 36px), transparent 100%);
+  }
   // border-right: 1px solid rgba(0, 0, 0, 0.12);
 
   &.sortable {
@@ -321,38 +374,44 @@ export default {
       }
 
       &.dragingItem {
-        background-color: var(--color-primary-background-hover) !important;
+        background-color: rgba(0, 0, 0, 0.06) !important;
       }
     }
   }
 }
 .listsItem {
   position: relative;
-  transition: .3s ease;
-  transition-property: color, background-color, opacity;
+  flex: none;
+  transition: @transition-fast;
+  transition-property: color, background-color, opacity, font-weight;
   background-color: transparent;
+  border-radius: 999px;
+  margin: 0;
   &:not(.active) {
     &:hover {
-      background-color: var(--color-primary-background-hover);
+      background-color: rgba(0, 0, 0, 0.04);
       cursor: pointer;
     }
   }
   &.active {
     // background-color:
     color: var(--color-primary);
+    background-color: var(--color-primary-alpha-900);
+    font-weight: 600;
   }
   &.selected {
-    background-color: var(--color-primary-font-active);
+    background-color: var(--color-primary-alpha-900);
   }
   &.clicked {
-    background-color: var(--color-primary-background-hover);
+    background-color: rgba(0, 0, 0, 0.05);
   }
   &.fetching {
     opacity: .5;
   }
   &.editing {
-    padding: 0 10px;
-    background-color: var(--color-primary-background-hover);
+    padding: 0 12px;
+    min-width: 120px;
+    background-color: rgba(0, 0, 0, 0.04);
     .listsLabel {
       display: none;
     }
@@ -362,17 +421,16 @@ export default {
   }
 }
 .activeIcon {
-  height: .9em;
-  width: .9em;
-  margin-left: -0.45em;
-  vertical-align: -0.05em;
+  display: none;
 }
 .listsLabel {
   display: block;
   height: @lists-item-height;
-  padding: 0 10px;
+  padding: 0 14px;
   font-size: 13px;
   line-height: @lists-item-height;
+  white-space: nowrap;
+  max-width: 160px;
   .mixin-ellipsis-1();
 }
 .listsInput {
@@ -391,14 +449,16 @@ export default {
 }
 
 .listsNew {
-  padding: 0 10px;
-  background-color: var(--color-primary-background-hover) !important;
+  padding: 0 12px;
+  min-width: 140px;
+  background-color: rgba(0, 0, 0, 0.04) !important;
   .listsInput {
     display: block;
   }
 }
 .newLeave {
-  margin-top: -@lists-item-height;
+  margin-top: 0;
+  margin-left: -140px;
   z-index: -1;
 }
 

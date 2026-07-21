@@ -6,27 +6,29 @@ const { createThemeColors } = require('./utils')
 
 const defaultThemes = [
   {
+    // 视觉展示调整：默认浅色对齐 YesPlayMusic 蓝强调色，无业务变更
+    // 参考 https://github.com/qier222/YesPlayMusic
     id: 'green',
-    name: '绿意盎然',
+    name: '浅色经典',
     isDark: false,
     isDarkFont: false,
     config: {
-      primary: 'rgb(77, 175, 124)',
-      font: 'rgb(33, 33, 33)',
-      '--color-app-background': 'var(--color-primary-light-600-alpha-700)',
+      primary: 'rgb(51, 94, 234)',
+      font: 'rgb(51, 51, 51)',
+      '--color-app-background': 'rgba(255, 255, 255, 1)',
       '--color-main-background': 'rgba(255, 255, 255, 1)',
-      '--color-nav-font': 'var(--color-primary)',
+      '--color-nav-font': 'rgb(51, 51, 51)',
       '--background-image': 'none',
       '--background-image-position': 'center',
       '--background-image-size': 'cover',
 
-      '--color-btn-hide': '#3bc2b2',
-      '--color-btn-min': '#85c43b',
-      '--color-btn-close': '#fab4a0',
+      '--color-btn-hide': '#ffbd2e',
+      '--color-btn-min': '#28c840',
+      '--color-btn-close': '#ff5f57',
 
       '--color-badge-primary': 'var(--color-primary)',
-      '--color-badge-secondary': '#4baed5',
-      '--color-badge-tertiary': '#e7aa36',
+      '--color-badge-secondary': '#5ac8fa',
+      '--color-badge-tertiary': '#ff9f0a',
     },
   },
   {

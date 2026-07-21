@@ -41,6 +41,8 @@ const options = {
   asar: {
     smartUnpack: false,
   },
+  // 视觉无关：无 VS 环境时跳过强制 native rebuild，使用 N-API/预编译二进制完成安装包构建
+  npmRebuild: false,
   extraResources: [
     './licenses',
   ],

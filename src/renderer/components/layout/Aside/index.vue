@@ -1,17 +1,10 @@
 <template>
-  <div :class="[$style.aside, { [$style.fullscreen]: isFullscreen }]">
-    <ControlBtns v-if="appSetting['common.controlBtnPosition'] == 'left'" />
-    <div v-else :class="$style.logo">L X</div>
-    <NavBar />
-  </div>
+  <!-- 视觉展示调整：侧栏导航已上移至顶栏，此处仅保留占位兼容，无业务变更 -->
+  <div :class="[$style.aside, { [$style.fullscreen]: isFullscreen }, $style.hidden]" />
 </template>
 
 <script setup>
 import { isFullscreen } from '@renderer/store'
-import { appSetting } from '@renderer/store/setting'
-
-import ControlBtns from './ControlBtns.vue'
-import NavBar from './NavBar.vue'
 
 </script>
 
@@ -19,37 +12,17 @@ import NavBar from './NavBar.vue'
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：隐藏左侧导航栏，无业务变更 */
 .aside {
-  // box-shadow: 0 0 5px rgba(0, 0, 0, .3);
-  transition: @transition-normal;
-  transition-property: background-color;
-  // background-color: @color-theme-sidebar;
-  // background-color: @color-aside-background;
-  // border-right: 2px solid var(--color-primary);
-  -webkit-app-region: drag;
-  -webkit-user-select: none;
-  display: flex;
-  flex-flow: column nowrap;
-
-  &.fullscreen {
-    -webkit-app-region: no-drag;
-    .logo {
-      display: none;
-    }
-  }
+  display: none;
 }
 
-.logo {
-  box-sizing: border-box;
-  padding: 0 13%;
-  height: 50px;
-  color: var(--color-nav-font);
-  opacity: .8;
-  flex: none;
-  text-align: center;
-  line-height: 50px;
-  font-weight: bold;
-  // -webkit-app-region: no-drag;
+.hidden {
+  display: none;
+}
+
+.fullscreen {
+  display: none;
 }
 
 </style>

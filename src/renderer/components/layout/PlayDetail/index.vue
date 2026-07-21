@@ -134,6 +134,7 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：播放详情大封面与字阶分层，无业务变更 */
 @control-btn-width: @height-toolbar * .26;
 
 .container {
@@ -170,14 +171,17 @@ export default {
   background-size: var(--background-image-size);
   // background-size: 110% 110%;
   // filter: blur(60px);
-  opacity: .7;
+  opacity: .55;
   z-index: -1;
   &:before {
     content: '';
     display: block;
     width: 100%;
     height: 100%;
-    background-color: var(--color-app-background);
+    background:
+      radial-gradient(ellipse 70% 50% at 20% 20%, rgba(51, 94, 234, 0.16) 0%, transparent 55%),
+      radial-gradient(ellipse 55% 45% at 85% 75%, rgba(90, 140, 255, 0.1) 0%, transparent 50%),
+      var(--color-app-background);
   }
   &:after {
     position: absolute;
@@ -187,7 +191,7 @@ export default {
     display: block;
     width: 100%;
     height: 100%;
-    background-color: var(--color-main-background);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.72) 0%, rgba(248, 250, 255, 0.88) 45%, rgba(255, 255, 255, 0.92) 100%);
   }
 }
 // .bg2 {
@@ -205,7 +209,7 @@ export default {
   min-height: 0;
   overflow: hidden;
   display: flex;
-  margin: 0 30px;
+  margin: 0 40px;
   position: relative;
 
   &.showComment {
@@ -213,7 +217,7 @@ export default {
       .left {
         flex-basis: 18%;
         .description p {
-          font-size: 12px;
+          font-size: 13px;
         }
       }
       .right {
@@ -234,7 +238,7 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  padding: 13px;
+  padding: 20px 16px;
   overflow: hidden;
   transition: flex-basis @transition-normal;
 }
@@ -243,26 +247,35 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
-  max-width: 300px;
+  max-width: 320px;
   min-height: 0;
 }
 .img {
   max-width: 100%;
   max-height: 80%;
   min-width: 100%;
-  box-shadow: 0 0 6px var(--color-primary-alpha-500);
-  border-radius: 6px;
-  opacity: .8;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  opacity: 1;
 }
 .description {
-  max-width: 300px;
-  margin-top: 15px;
-  padding-bottom: 15px;
+  max-width: 320px;
+  margin-top: 20px;
+  padding-bottom: 16px;
   min-height: 0;
   p {
-    line-height: 1.5;
+    line-height: 1.55;
     font-size: 14px;
     overflow-wrap: break-word;
+    color: rgba(0, 0, 0, 0.55);
+
+    &:first-child {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.35;
+      color: rgba(0, 0, 0, 0.88);
+      margin-bottom: 6px;
+    }
   }
 }
 
@@ -274,7 +287,7 @@ export default {
   width: 50%;
   height: 100%;
   opacity: 1;
-  margin-left: 10px;
+  margin-left: 16px;
   transform: scaleX(0);
 }
 

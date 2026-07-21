@@ -103,33 +103,35 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：列表操作按钮加大点击区，无业务变更 */
 .btns {
   line-height: 1.2;
 
   button {
     background-color: transparent;
     border: none;
-    border-radius: @form-radius;
-    margin-right: 5px;
+    border-radius: 999px;
+    margin-right: 4px;
     cursor: pointer;
-    padding: 4px 7px;
-    color: var(--color-button-font);
+    padding: 6px 9px;
+    color: rgba(0, 0, 0, 0.55);
     outline: none;
-    transition: background-color 0.2s ease;
+    transition: background-color @transition-fast, color @transition-fast;
     line-height: 0;
     &:last-child {
       margin-right: 0;
     }
 
     svg {
-      height: 16px;
+      height: 17px;
     }
 
     &:hover {
-      background-color: var(--color-button-background-hover);
+      background-color: var(--color-primary-alpha-900);
+      color: var(--color-primary);
     }
     &:active {
-      background-color: var(--color-button-background-active);
+      background-color: var(--color-primary-alpha-800);
     }
   }
 }

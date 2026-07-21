@@ -8,7 +8,9 @@
       <base-btn :class="$style.btn" outline min @click="visibleOpenSongListModal = true">{{ $t('songlist__import_input_show_btn') }}</base-btn>
       <base-selection :model-value="source" :class="$style.select" :list="sourceList" item-key="id" item-name="name" @update:model-value="handleToggleSource" />
     </div>
-    <list-view :source="source" :tag-id="tagId" :sort-id="sortId" :page="page" />
+    <div :class="$style.main">
+      <list-view :source="source" :tag-id="tagId" :sort-id="sortId" :page="page" />
+    </div>
     <open-list-modal v-model="visibleOpenSongListModal" :source-list="sourceList" />
   </div>
 </template>
@@ -119,33 +121,50 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：歌单页顶栏留白，无业务变更 */
 .container {
   height: 100%;
   display: flex;
   flex-flow: column nowrap;
   position: relative;
+  padding-top: 4px;
+  min-height: 0;
 }
 .header {
   flex: none;
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
+  align-items: center;
   // padding-right: 5px;
   // box-sizing: border-box;
-  padding-bottom: 5px;
+  padding: 6px 16px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 .left {
   flex: auto;
   display: flex;
   flex-flow: row nowrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* 视觉展示调整：列表区占满剩余高度，避免空白塌陷，无业务变更 */
+.main {
+  flex: auto;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn {
-  color: var(--color-font);
+  color: rgba(0, 0, 0, 0.55);
   transition: color @transition-fast;
   background: none !important;
+  border-radius: 999px;
   &:hover {
-    color: var(--color-primary-font-hover);
+    color: var(--color-primary);
   }
 }
 

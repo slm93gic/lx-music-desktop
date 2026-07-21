@@ -244,6 +244,7 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：评论区圆角与字阶对齐浅色体系，无业务变更 */
 .comment {
   display: flex;
   flex-flow: column nowrap;
@@ -254,15 +255,16 @@ export default {
 }
 .commentHeader {
   flex: none;
-  padding-bottom: 5px;
+  padding-bottom: 8px;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   // border-bottom: 1px solid #eee;
   h3 {
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 600;
     .mixin-ellipsis-1();
-    line-height: 1.2;
+    line-height: 1.3;
   }
 }
 .commentHeaderBtns {
@@ -273,13 +275,13 @@ export default {
   color: var(--color-primary);
 }
 .commentHeaderBtn {
-  height: 22px;
-  width: 22px;
+  height: 24px;
+  width: 24px;
   cursor: pointer;
   transition: opacity @transition-normal;
 
   +.commentHeaderBtn {
-    margin-left: 5px;
+    margin-left: 8px;
   }
 
   &:hover {
@@ -288,17 +290,17 @@ export default {
 }
 .commentMain {
   flex: auto;
-  background-color: var(--color-primary-light-400-alpha-700);
-  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: @radius-border;
   display: flex;
   flex-direction: column;
 }
 .tab_header {
   display: flex;
   flex-flow: row nowrap;
-  gap: 15px;
-  padding-left: 15px;
-  padding-right: 10px;
+  gap: 12px;
+  padding-left: 16px;
+  padding-right: 12px;
 }
 .tab_main {
   flex: auto;
@@ -319,29 +321,33 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  padding-left: 15px;
-  padding-right: 10px;
+  padding-left: 16px;
+  padding-right: 12px;
   scroll-behavior: smooth;
 }
 .commentLabel {
-  padding: 15px;
-  color: var(--color-font-label);
+  padding: 16px;
+  color: rgba(0, 0, 0, 0.35);
   font-size: 14px;
+  font-weight: 500;
 }
 .commentType {
-  padding: 5px;
-  margin: 5px 0;
+  padding: 6px 10px;
+  margin: 8px 0;
   font-size: 13px;
+  border-radius: 999px;
   background: none;
   border: none;
   cursor: pointer;
   transition: @transition-normal;
-  transition-property: opacity, color;
+  transition-property: opacity, color, background-color;
   &:hover {
     opacity: .7;
   }
   &.active {
     color: var(--color-primary);
+    font-weight: 600;
+    background-color: var(--color-primary-alpha-900);
   }
 }
 .commentFloor {
@@ -353,7 +359,7 @@ export default {
   }
 }
 .pagination {
-  padding: 10px 0;
+  padding: 12px 0;
 }
 
 .unavailable {
@@ -361,7 +367,8 @@ export default {
   padding-top: 10%;
   text-align: center;
   font-size: 14px;
-  color: var(--color-font-label);
+  color: rgba(0, 0, 0, 0.35);
+  font-weight: 500;
 }
 
 </style>

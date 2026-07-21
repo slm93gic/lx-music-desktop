@@ -54,8 +54,9 @@ watch(() => props.source, async(source) => {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：排序筛选胶囊化，无业务变更 */
 .tagList {
-  font-size: 12px;
+  font-size: 13px;
   position: relative;
 
   &.active {
@@ -74,16 +75,14 @@ watch(() => props.source, async(source) => {
 }
 
 .label {
-  padding: 8px 15px;
-  // background-color: var(--color-button-background);
-  transition: background-color @transition-normal;
-  // border-top: 2px solid @color-tab-border-bottom;
-  // border-left: 2px solid @color-tab-border-bottom;
+  padding: 8px 14px;
+  transition: background-color @transition-normal, color @transition-normal;
   box-sizing: border-box;
   text-align: center;
-  // border-top-left-radius: 3px;
-  color: var(--color-button-font);
+  color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
+  border-radius: 999px;
+  font-weight: 500;
 
   display: flex;
 
@@ -102,22 +101,22 @@ watch(() => props.source, async(source) => {
   }
 
   &:hover {
-    background-color: var(--color-button-background-hover);
+    background-color: var(--color-primary-alpha-900);
+    color: var(--color-primary);
   }
   &:active {
-    background-color: var(--color-button-background-active);
+    color: var(--color-primary);
   }
 }
 
 .list {
   position: absolute;
   top: 100%;
-  width: 645px;
+  width: 200px;
   left: 0;
-  // border-bottom: 2px solid @color-tab-border-bottom;
-  // border-right: 2px solid @color-tab-border-bottom;
-  border-bottom-right-radius: 5px;
-  background-color: var(--color-main-background);
+  margin-top: 8px;
+  border-radius: @radius-border;
+  background-color: var(--color-content-background);
   opacity: 0;
   transform: scaleY(0);
   overflow-y: auto;
@@ -126,47 +125,51 @@ watch(() => props.source, async(source) => {
   transition: .25s ease;
   transition-property: transform, opacity;
   z-index: 10;
-  padding: 10px;
+  padding: 8px;
   box-sizing: border-box;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, .1));
 
   li {
     cursor: pointer;
-    padding: 8px 15px;
-    // color: var(--color-button-font);
+    padding: 8px 14px;
     text-align: center;
     outline: none;
-    transition: background-color @transition-normal;
-    background-color: var(--color-button-background);
+    transition: background-color @transition-normal, color @transition-normal;
+    background-color: transparent;
     box-sizing: border-box;
+    border-radius: 999px;
+    color: rgba(0, 0, 0, 0.7);
 
     &:hover {
-      background-color: var(--color-button-background-hover);
+      background-color: var(--color-primary-alpha-900);
+      color: var(--color-primary);
     }
     &:active {
-      background-color: var(--color-button-background-active);
+      background-color: var(--color-primary-alpha-800);
     }
   }
 }
 
 .type {
   padding-top: 10px;
-  padding-bottom: 3px;
-  color: var(--color-font-label);
+  padding-bottom: 4px;
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .tag {
   display: inline-block;
-  margin: 5px;
-  background-color: var(--color-button-background);
-  padding: 8px 10px;
-  border-radius: @radius-progress-border;
-  transition: background-color @transition-normal;
+  margin: 4px;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 7px 12px;
+  border-radius: 999px;
+  transition: background-color @transition-normal, color @transition-normal;
   cursor: pointer;
   &:hover {
-    background-color: var(--color-button-background-hover);
+    background-color: var(--color-primary-alpha-900);
+    color: var(--color-primary);
   }
   &:active {
-    background-color: var(--color-button-background-active);
+    background-color: var(--color-primary-alpha-800);
   }
 }
 

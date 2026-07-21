@@ -287,6 +287,7 @@ export default {
 
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
+/* 视觉展示调整：在线搜索结果列表与分页外观，无业务变更 */
 .songList {
   overflow: hidden;
   height: 100%;
@@ -304,6 +305,8 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   font-size: 14px;
+  /* 视觉展示调整：列表左右留白，无业务变更 */
+  padding: 4px 10px 8px;
 }
 
 .content {
@@ -315,7 +318,7 @@ export default {
 
 .pagination {
   text-align: center;
-  padding: 15px 0;
+  padding: 12px 0 16px;
   // left: 50%;
   // transform: translateX(-50%);
 }
@@ -332,8 +335,9 @@ export default {
   // background-color: var(--color-000);
 
   p {
-    font-size: 24px;
-    color: var(--color-font-label);
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.28);
   }
 }
 

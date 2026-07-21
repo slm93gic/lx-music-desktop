@@ -55,18 +55,19 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
-@padding: 15px;
+/* 视觉展示调整：评论楼层字号与圆角，无业务变更 */
+@padding: 16px;
 
 // .container {
 
 // }
 
 .listItem {
-  border-bottom: 1px dashed var(--color-primary-alpha-700);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .content {
-  padding: 12px 0;
+  padding: 14px 0;
   font-size: 13px;
   color: var(--color-font);
   display: flex;
@@ -76,23 +77,23 @@ export default {
 }
 .avatar {
   width: 40px;
-  border-radius: 4px;
-  box-shadow: 0 0 2px rgba(0, 0, 0, .15);
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
 }
 .right {
   flex: auto;
   min-width: 0;
-  margin-left: 10px;
+  margin-left: 12px;
 }
 
 .info {
   display: flex;
   flex-flow: row nowrap;
-  gap: 15px;
+  gap: 12px;
   width: 100%;
   height: 40px;
-  line-height: 1.3;
-  color: var(--color-450);
+  line-height: 1.35;
+  color: rgba(0, 0, 0, 0.45);
 }
 .baseInfo {
   height: 100%;
@@ -113,16 +114,17 @@ export default {
   flex: 0 1 auto;
   min-width: 0;
   .mixin-ellipsis-1();
-  color: var(--color-650);
+  color: rgba(0, 0, 0, 0.75);
+  font-weight: 500;
 }
 .label {
   flex: none;
-  font-size: 12px;
+  font-size: 13px;
   // margin-left: 5px;
 }
 .likes {
   flex: none;
-  font-size: 11px;
+  font-size: 12px;
   text-align: right;
   padding-top: 3px;
   align-self: flex-start;
@@ -136,7 +138,7 @@ export default {
 .comment_text {
   text-align: justify;
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.55;
   word-break: break-all;
   overflow-wrap: break-word;
   white-space: pre-wrap;
@@ -144,18 +146,19 @@ export default {
 .comment_images {
   display: flex;
   flex-flow: row wrap;
-  gap: 5px;
-  margin-top: 5px;
+  gap: 6px;
+  margin-top: 6px;
 
   img {
     max-width: 240px;
+    border-radius: 8px;
   }
 }
 
 .reply_floor {
   padding: 0 0 0 @padding;
   margin-left: @padding * 2;
-  border-radius: .5rem;
+  border-radius: @radius-border;
   &:last-child {
     margin-bottom: 12px;
   }
@@ -166,7 +169,7 @@ export default {
     margin-right: 10px;
   }
 
-  background-color: var(--color-primary-light-500-alpha-700);
+  background-color: rgba(0, 0, 0, 0.025);
 }
 
 

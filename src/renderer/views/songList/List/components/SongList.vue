@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
     <div v-show="!props.listInfo.noItemLabel" ref="dom_list_ref" :class="$style.listContent" class="scroll">
-      <ul>
+      <ul :class="$style.songGrid">
         <li v-for="item in props.listInfo.list" :key="item.id" :class="$style.item" @click="toDetail(item)">
           <div :class="$style.image">
             <img :class="$style.img" loading="lazy" decoding="async" :src="item.img">
@@ -19,7 +19,8 @@
             </div>
           </div>
         </li>
-        <li v-for="(i, index) in 6" :key="index" :class="$style.item" style="margin-bottom: 0;height: 0;" />
+        <!-- 视觉展示调整：末行占位对齐，无业务变更 -->
+        <li v-for="(i, index) in 6" :key="'pad-' + index" :class="$style.item" style="margin-bottom: 0; height: 0; overflow: hidden; opacity: 0; pointer-events: none;" />
       </ul>
       <div :class="$style.pagination">
         <material-pagination :count="props.listInfo.total" :limit="props.listInfo.limit" :page="props.listInfo.page" @btn-click="togglePage" />
@@ -88,6 +89,7 @@ defineExpose({
 
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
+/* 视觉展示调整：恢复稳定布局 + 大气封面卡片，无业务变更 */
 .container {
   overflow: hidden;
   height: 100%;
@@ -100,104 +102,140 @@ defineExpose({
   position: absolute;
   left: 0;
   top: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-flow: column nowrap;
+  display: block;
   font-size: 14px;
   box-sizing: border-box;
-  padding: 15px 15px 0;
-
-  ul {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-  }
+  padding: 16px 20px 0;
 }
+
+.songGrid {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-content: flex-start;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+
 .item {
-  max-width: 360px;
-  width: 32%;
+  /* 视觉展示调整：一行 5 个歌单卡片，无业务变更 */
+  width: 18.5%;
+  max-width: none;
   box-sizing: border-box;
   display: flex;
-  // flex-flow: column nowrap;
-  // padding: 10px;
-  margin-bottom: 20px;
+  flex-flow: column nowrap;
+  margin-bottom: 24px;
   cursor: pointer;
   transition: opacity @transition-normal;
+
   &:hover {
-    opacity: .7;
+    opacity: .92;
+
+    .image {
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+    }
+
+    h4 {
+      color: var(--color-primary);
+    }
   }
 }
+
 .image {
   flex: none;
-  width: 40%;
+  width: 100%;
   display: flex;
   background-position: center;
   background-size: cover;
-  border-radius: 4px;
+  border-radius: 12px;
   overflow: hidden;
-  opacity: .9;
+  opacity: 1;
   aspect-ratio: 1 / 1;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.04);
+  transition: box-shadow @transition-fast;
+  position: relative;
 
-  box-shadow: 0 0 2px 0 rgba(0,0,0,.2);
+  &:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: @gradient-card-shine;
+    opacity: 0.55;
+    pointer-events: none;
+  }
 }
+
 .img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .desc {
   flex: auto;
-  padding: 2px 15px 2px 7px;
+  padding: 10px 2px 0;
   overflow: hidden;
+  min-width: 0;
+
   h4 {
     font-size: 14px;
-    // height: 2.6em;
-    text-align: justify;
-    line-height: 1.3;
+    font-weight: 600;
+    text-align: left;
+    line-height: 1.35;
+    color: rgba(0, 0, 0, 0.88);
+    transition: color @transition-fast;
     .mixin-ellipsis-2();
   }
 }
+
 .songlist_info {
   display: flex;
   flex-flow: row nowrap;
-  gap: 15px;
-  margin-top: 8px;
+  gap: 10px;
+  margin-top: 6px;
   font-size: 12px;
   .mixin-ellipsis-1();
-  text-align: justify;
+  text-align: left;
   line-height: 1.2;
-  // text-indent: 24px;
-  color: var(--color-font-label);
+  color: rgba(0, 0, 0, 0.38);
+
   svg {
     margin-right: 2px;
   }
 }
+
 .author {
-  margin-top: 6px;
-  font-size: 12px;
+  margin-top: 5px;
+  font-size: 13px;
   .mixin-ellipsis-1();
-  text-align: justify;
+  text-align: left;
   line-height: 1.3;
-  // text-indent: 24px;
-  color: var(--color-font-label);
+  color: rgba(0, 0, 0, 0.45);
 }
+
 .time {
-  margin-top: 3px;
+  margin-top: 2px;
   font-size: 12px;
   .mixin-ellipsis-1();
-  text-align: justify;
+  text-align: left;
   line-height: 1.3;
-  // text-indent: 24px;
-  color: var(--color-font-label);
+  color: rgba(0, 0, 0, 0.35);
 }
+
 .pagination {
   text-align: center;
-  padding: 15px 0;
-  // left: 50%;
-  // transform: translateX(-50%);
+  padding: 20px 0 28px;
 }
+
 .noitem {
   position: absolute;
   top: 0;
@@ -208,11 +246,11 @@ defineExpose({
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  // background-color: var(--color-000);
 
   p {
-    font-size: 24px;
-    color: var(--color-font-label);
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.28);
   }
 }
 

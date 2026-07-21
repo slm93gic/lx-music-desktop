@@ -65,12 +65,15 @@ const handleTogglePage = (page: number) => {
 
 
 <style lang="less" module>
+/* 视觉展示调整：搜索歌曲结果容器留白，无业务变更 */
 .container {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
+  padding: 4px 4px 0;
+  box-sizing: border-box;
 }
 
 .list {

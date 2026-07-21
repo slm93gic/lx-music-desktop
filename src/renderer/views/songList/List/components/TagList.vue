@@ -119,8 +119,9 @@ onBeforeUnmount(() => {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：标签筛选胶囊化，无业务变更 */
 .tagList {
-  font-size: 12px;
+  font-size: 13px;
   position: relative;
 
   &.active {
@@ -140,16 +141,14 @@ onBeforeUnmount(() => {
 }
 
 .label {
-  padding: 8px 15px;
-  // background-color: var(--color-button-background);
-  transition: color @transition-normal;
-  // border-top: 2px solid @color-tab-border-bottom;
-  // border-left: 2px solid @color-tab-border-bottom;
+  padding: 8px 14px;
+  transition: color @transition-normal, background-color @transition-normal;
   box-sizing: border-box;
   text-align: center;
-  // border-top-left-radius: 3px;
-  color: var(--color-font);
+  color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
+  border-radius: 999px;
+  font-weight: 500;
 
   display: flex;
 
@@ -168,10 +167,11 @@ onBeforeUnmount(() => {
   }
 
   &:hover {
-    color: var(--color-primary-font-hover);
+    color: var(--color-primary);
+    background-color: var(--color-primary-alpha-900);
   }
   &:active {
-    color: var(--color-primary-font-active);
+    color: var(--color-primary);
   }
 }
 
@@ -181,7 +181,7 @@ onBeforeUnmount(() => {
   width: 645px;
   left: 8px;
   margin-top: 12px;
-  border-radius: 4px;
+  border-radius: @radius-border;
   background-color: var(--color-content-background);
   opacity: 0;
   transform: scale(.95, .8);
@@ -191,7 +191,7 @@ onBeforeUnmount(() => {
   max-height: 250px;
   z-index: 10;
   pointer-events: none;
-  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, .15));
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, .1));
   display: flex;
 
   &:before {
@@ -207,30 +207,34 @@ onBeforeUnmount(() => {
   }
 }
 .list {
-  padding: 10px;
+  padding: 12px;
   box-sizing: border-box;
   // box-shadow: 0 0 4px rgba(0, 0, 0, .2);
 }
 
 .type {
   padding-top: 10px;
-  padding-bottom: 3px;
-  color: var(--color-font-label);
+  padding-bottom: 4px;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .tag {
   display: inline-block;
-  margin: 5px;
-  background-color: var(--color-button-background);
-  padding: 8px 10px;
-  border-radius: @radius-progress-border;
-  transition: background-color @transition-normal;
+  margin: 4px;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 7px 12px;
+  border-radius: 999px;
+  transition: background-color @transition-normal, color @transition-normal;
   cursor: pointer;
+  color: rgba(0, 0, 0, 0.7);
   &:hover {
-    background-color: var(--color-button-background-hover);
+    background-color: var(--color-primary-alpha-900);
+    color: var(--color-primary);
   }
   &:active {
-    background-color: var(--color-button-background-active);
+    background-color: var(--color-primary-alpha-800);
   }
 }
 

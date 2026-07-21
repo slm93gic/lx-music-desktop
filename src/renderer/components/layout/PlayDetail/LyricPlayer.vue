@@ -196,6 +196,7 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：歌词行距与主色强调，无业务变更 */
 .right {
   flex: 0 0 60%;
   // padding: 0 30px;
@@ -207,26 +208,26 @@ export default {
   height: 100%;
   overflow: hidden;
   font-size: var(--playDetail-lrc-font-size, 16px);
-  -webkit-mask-image: linear-gradient(transparent 0%, #fff 20%,  #fff 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(transparent 0%, #fff 18%,  #fff 82%, transparent 100%);
   cursor: grab;
   &.draging {
     cursor: grabbing;
   }
   :global {
     .font-lrc {
-      color: var(--color-450);
+      color: rgba(0, 0, 0, 0.38);
     }
     .line-content {
-      line-height: 1.2;
-      padding: calc(var(--playDetail-lrc-font-size, 16px) / 2) 1px;
+      line-height: 1.45;
+      padding: calc(var(--playDetail-lrc-font-size, 16px) * 0.65) 1px;
       overflow-wrap: break-word;
-      color: var(--color-450);
+      color: rgba(0, 0, 0, 0.38);
       transition: @transition-normal;
       transition-property: padding;
 
       .extended {
         font-size: 0.8em;
-        margin-top: 5px;
+        margin-top: 6px;
       }
       &.line-mode {
         .font-lrc {
@@ -235,7 +236,8 @@ export default {
         }
       }
       &.line-mode.active .font-lrc, &.font-mode.played .font-lrc {
-        color: var(--color-primary-dark-200);
+        color: var(--color-primary);
+        font-weight: 600;
       }
       &.font-mode .extended .font-lrc {
         transition: @transition-slow;
@@ -248,8 +250,8 @@ export default {
           transition-property: font-size;
           font-size: 1em;
           background-repeat: no-repeat;
-          background-color: var(--color-450);
-          background-image: -webkit-linear-gradient(top, var(--color-primary-dark-200), var(--color-primary-dark-200));
+          background-color: rgba(0, 0, 0, 0.38);
+          background-image: -webkit-linear-gradient(top, var(--color-primary), var(--color-primary));
           -webkit-text-fill-color: transparent;
           -webkit-background-clip: text;
           background-size: 0 100%;
@@ -277,7 +279,7 @@ export default {
           font-size: .94em;
         }
         .line {
-          font-size: 1.1em;
+          font-size: 1.14em;
         }
       }
     }

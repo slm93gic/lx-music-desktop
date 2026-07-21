@@ -229,6 +229,7 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：弹窗圆角与阴影对齐浅色体系，无业务变更 */
 .container {
   position: absolute;
   top: 0;
@@ -269,8 +270,8 @@ export default {
 
 .content {
   position: relative;
-  border-radius: 4px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+  border-radius: @radius-border;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, .12), 0 2px 8px rgba(0, 0, 0, .06);
   overflow: hidden;
   // max-height: 80%;
   // max-width: 76%;
@@ -280,35 +281,40 @@ export default {
   flex-flow: column nowrap;
   z-index: 100;
   background-color: var(--color-content-background);
+  background-image: radial-gradient(ellipse 80% 60% at 0% 0%, rgba(51, 94, 234, 0.06) 0%, transparent 55%),
+    linear-gradient(180deg, #ffffff 0%, #fafbff 100%);
 }
 
 .header {
   flex: none;
-  background-color: var(--color-primary-light-100-alpha-100);
+  background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  height: 18px;
+  height: 28px;
+  padding: 4px 4px 0;
 
   button {
     border: none;
     cursor: pointer;
-    padding: 4px 7px;
+    padding: 6px 8px;
     background-color: transparent;
-    color: var(--color-primary-dark-500-alpha-500);
+    color: rgba(0, 0, 0, 0.4);
     outline: none;
-    transition: background-color 0.2s ease;
+    transition: background-color @transition-fast, color @transition-fast;
     line-height: 0;
+    border-radius: 999px;
 
     svg {
-      height: .7em;
+      height: .75em;
     }
 
     &:hover {
-      background-color: var(--color-primary-dark-100-alpha-600);
+      background-color: rgba(0, 0, 0, 0.06);
+      color: rgba(0, 0, 0, 0.7);
     }
     &:active {
-      background-color: var(--color-primary-dark-200-alpha-600);
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 }

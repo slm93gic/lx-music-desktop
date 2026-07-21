@@ -62,11 +62,15 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：我的列表改为上下布局，侧栏导航置顶，无业务变更 */
 .container {
   overflow: hidden;
   height: 100%;
   display: flex;
+  flex-flow: column nowrap;
   position: relative;
+  gap: 0;
+  background-color: transparent;
 }
 
 </style>

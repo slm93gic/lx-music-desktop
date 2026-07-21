@@ -45,6 +45,7 @@ onMounted(() => {
 @import './assets/styles/index.less';
 @import './assets/styles/layout.less';
 
+/* 视觉展示调整：全局壳层字体与层次贴近 Apple Music 浅色，无业务变更 */
 html {
   height: 100vh;
 }
@@ -56,6 +57,8 @@ html, body {
 body {
   user-select: none;
   height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 #root {
   height: 100%;
@@ -88,7 +91,7 @@ body {
     border-radius: @radius-border;
   }
   #root {
-    box-shadow: 0 0 @shadow-app rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     border-radius: @radius-border;
   }
   // #container {
@@ -100,7 +103,7 @@ body {
   background-color: var(--color-content-background);
 
   #body {
-    border: 1Px solid var(--color-primary-light-500);
+    border: 1Px solid rgba(0, 0, 0, 0.06);
   }
 
   #right {
@@ -121,28 +124,32 @@ body {
   }
 }
 
+/* 视觉展示调整：取消左侧导航栏占位，顶栏导航全宽布局，无业务变更 */
 #container {
   position: relative;
   display: flex;
   height: 100%;
-  background-color: var(--color-app-background);
+  background: @gradient-page;
+  background-color: var(--color-main-background);
 }
 
 #left {
+  display: none;
+  width: 0;
   flex: none;
-  width: @width-app-left;
+  overflow: hidden;
 }
 #right {
   flex: auto;
+  width: 100%;
   display: flex;
   flex-flow: column nowrap;
   transition: background-color @transition-normal;
-  background-color: var(--color-main-background);
+  background: transparent;
 
-  border-top-left-radius: @radius-border;
-  border-bottom-left-radius: @radius-border;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 #toolbar, #player {
   flex: none;
@@ -152,6 +159,7 @@ body {
   flex: auto;
   // display: flex;
   min-height: 0;
+  background: transparent;
 }
 
 .view-container {

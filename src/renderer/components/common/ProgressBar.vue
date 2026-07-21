@@ -93,23 +93,27 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：细进度条仿 YesPlayMusic，无业务变更 */
 .progress {
   width: 100%;
-  height: 5px;
-  overflow: hidden;
+  height: 2px;
+  overflow: visible;
   transition: @transition-normal;
-  transition-property: background-color;
-  background-color: var(--color-primary-light-100-alpha-800);
-  // background-color: #f5f5f5;
+  transition-property: background-color, height;
+  background-color: rgba(0, 0, 0, 0.06);
   position: relative;
-  border-radius: 40px;
+  border-radius: 0;
+
+  &:hover {
+    height: 4px;
+  }
 }
 .progressMask {
   position: absolute;
   left: 0;
-  top: 0;
+  top: -4px;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 8px);
   cursor: pointer;
 }
 .progressBar {
@@ -121,18 +125,18 @@ export default {
   transform-origin: 0;
 }
 .progressBar1 {
-  background-color: var(--color-primary-light-100-alpha-600);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .progressBar2 {
-  background-color: var(--color-primary-light-100-alpha-400);
+  background-color: var(--color-primary);
   will-change: transform;
 }
 
 .progressBar3 {
-  background-color: var(--color-primary-light-100-alpha-200);
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  opacity: 0.5;
+  background-color: var(--color-primary);
+  box-shadow: none;
+  opacity: 0.35;
 }
 
 .barTransition {

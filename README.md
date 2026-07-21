@@ -1,6 +1,6 @@
 <p align="center"><a href="https://github.com/lyswhut/lx-music-desktop"><img width="200" src="https://github.com/lyswhut/lx-music-desktop/blob/master/doc/images/icon.png" alt="lx-music logo"></a></p>
 
-<h1 align="center">LX Music 桌面版</h1>
+<h1 align="center">LX Music 桌面版 个人美化版</h1>
 
 <p align="center">
   <a href="https://github.com/lyswhut/lx-music-desktop/releases"><img src="https://img.shields.io/github/release/lyswhut/lx-music-desktop" alt="Release version"></a>
@@ -89,6 +89,11 @@
 
 <p><img width="100%" src="./doc/images/app.png" alt="lx-music desktop UI"></p>
 
+修改后
+<p><img width="100%" src="./doc/images/app1.png" alt="lx-music desktop UI"></p>
+<p><img width="100%" src="./doc/images/app2.png" alt="lx-music desktop UI"></p>
+<p><img width="100%" src="./doc/images/app3.png" alt="lx-music desktop UI"></p>
+<p><img width="100%" src="./doc/images/app4.png" alt="lx-music desktop UI"></p>
 ## 贡献代码
 
 本项目欢迎 PR，但为了 PR 能顺利合并，需要注意以下几点：

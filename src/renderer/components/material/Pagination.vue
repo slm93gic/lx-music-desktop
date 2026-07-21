@@ -109,11 +109,13 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：分页胶囊化与主色选中，无业务变更 */
 .pagination {
   display: inline-block;
-  background-color: var(--color-button-background);
+  background-color: rgba(0, 0, 0, 0.035);
   // border-top-left-radius: 8px;
-  border-radius: @radius-border;
+  border-radius: 999px;
+  padding: 2px;
   ul {
     display: flex;
     flex-flow: row nowrap;
@@ -135,14 +137,18 @@ export default {
       span,
       button {
         display: block;
-        padding: 7px 12px;
+        padding: 8px 14px;
         line-height: 1.2;
-        color: var(--color-button-font);
+        color: rgba(0, 0, 0, 0.65);
         font-size: 13px;
+        border-radius: 999px;
+        font-weight: 500;
       }
-      &.active {
+  &.active {
         span {
-          background-color: var(--color-button-background-selected);
+          background: @gradient-primary-btn;
+          color: #fff;
+          box-shadow: 0 4px 10px rgba(51, 94, 234, 0.25);
         }
       }
       button {
@@ -150,12 +156,13 @@ export default {
         border: none;
         cursor: pointer;
         outline: none;
-        transition: background-color .3s ease;
+        transition: background-color @transition-fast, color @transition-fast;
         &:hover {
-          background-color: var(--color-button-background-hover);
+          background-color: var(--color-primary-alpha-900);
+          color: var(--color-primary);
         }
         &:active {
-          background-color: var(--color-button-background-active);
+          background-color: var(--color-primary-alpha-800);
         }
       }
       &.disabled {
@@ -165,15 +172,15 @@ export default {
       }
       &:first-child {
         span, button {
-          border-top-left-radius: @radius-border;
-          border-bottom-left-radius: @radius-border;
+          border-top-left-radius: 999px;
+          border-bottom-left-radius: 999px;
         }
         // border-right: .0625rem solid @theme_line;
       }
       &:last-child {
         span, button {
-          border-top-right-radius: @radius-border;
-          border-bottom-right-radius: @radius-border;
+          border-top-right-radius: 999px;
+          border-bottom-right-radius: 999px;
         }
         // border-right: .0625rem solid @theme_line;
       }

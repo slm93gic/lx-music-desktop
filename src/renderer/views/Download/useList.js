@@ -49,8 +49,9 @@ export default ({ listRef, list, listAll }) => {
   const selectedList = ref([])
 
   let lastSelectIndex = -1
+  // 视觉展示调整：加大行高减少拥挤感，无业务变更
   const listItemHeight = computed(() => {
-    return Math.ceil((isFullscreen.value ? getFontSizeWithScreen() : appSetting['common.fontSize']) * 2.3)
+    return Math.ceil((isFullscreen.value ? getFontSizeWithScreen() : appSetting['common.fontSize']) * 2.9)
   })
 
   const removeAllSelect = () => {

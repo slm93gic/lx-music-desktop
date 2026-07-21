@@ -148,16 +148,17 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：中等进度条底栏外观，无业务变更 */
 .player {
   position: relative;
   height: @height-player;
-  border-top: 1px solid var(--color-primary-alpha-900);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   contain: strict;
-  padding: 6px;
+  padding: 10px 14px 12px;
   z-index: 2;
   // box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   * {
@@ -170,9 +171,10 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--color-main-background);
-    opacity: .9;
+    background: @gradient-player;
+    opacity: 1;
     z-index: -1;
+    backdrop-filter: blur(20px);
   }
 }
 
@@ -193,26 +195,26 @@ export default {
   cursor: pointer;
 
   &:hover {
-    opacity: .8;
+    opacity: .9;
   }
 
   // svg {
   //   fill: currentColor;
   // }
   img {
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
     max-width: 100%;
     max-height: 100%;
     transition: @transition-normal;
     transition-property: border-color;
     // border-radius: 50%;
-    border-radius: @radius-border;
+    border-radius: 8px;
     // border: 2px solid @color-theme_2-background_1;
   }
 
   .emptyPic {
-    background-color: var(--color-primary-light-900-alpha-200);
-    border-radius: @radius-border;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 8px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -300,25 +302,33 @@ export default {
   gap: 18px;
 }
 
+/* 视觉展示调整：播放按钮外观，无业务变更 */
 .playBtn {
   flex: none;
-  height: 52%;
+  height: 48%;
   // margin-top: -2px;
   transition: @transition-fast;
-  transition-property: color, opacity;
-  color: var(--color-button-font);
+  transition-property: color, opacity, transform;
+  color: var(--color-font);
   opacity: 1;
   cursor: pointer;
 
+  &:nth-child(2) {
+    height: 58%;
+    color: var(--color-primary);
+  }
+
   svg {
     fill: currentColor;
-    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.2));
+    filter: none;
   }
   &:hover {
-    opacity: 0.8;
+    opacity: 0.75;
+    transform: scale(1.06);
   }
   &:active {
     opacity: 0.6;
+    transform: scale(0.96);
   }
 }
 

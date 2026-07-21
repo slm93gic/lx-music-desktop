@@ -1,29 +1,43 @@
 <template>
   <div :class="$style.container">
+    <!-- 视觉展示调整：歌单详情头图对齐 YesPlayMusic 大气布局，无业务变更 -->
     <div :class="$style.songListHeader">
       <div :class="$style.songListHeaderLeft" :style="{ backgroundImage: 'url('+(picUrl || listDetailInfo.info.img)+')' }">
         <!-- <span v-if="listDetailInfo.info.play_count" :class="$style.playNum">{{ listDetailInfo.info.play_count }}</span> -->
       </div>
       <div :class="$style.songListHeaderMiddle">
         <h3 :title="listDetailInfo.info.name">{{ listDetailInfo.info.name }}</h3>
-        <p :title="listDetailInfo.info.desc">{{ listDetailInfo.info.desc }}</p>
-      </div>
-      <div :class="$style.songListHeaderRight">
-        <base-btn
-          :class="$style.headerRightBtn"
-          :disabled="!!listDetailInfo.noItemLabel"
-          @click="playSongListDetail(listDetailInfo.id, listDetailInfo.source, listDetailInfo.list)"
-        >
-          {{ $t('list__play') }}
-        </base-btn>
-        <base-btn
-          :class="$style.headerRightBtn"
-          :disabled="!!listDetailInfo.noItemLabel"
-          @click="addSongListDetail(listDetailInfo.id, listDetailInfo.source, listDetailInfo.info.name)"
-        >
-          {{ $t('list__collect') }}
-        </base-btn>
-        <base-btn :class="$style.headerRightBtn" @click="handleBack">{{ $t('back') }}</base-btn>
+        <div :class="$style.meta">
+          <span>{{ $t('song_list') }}</span>
+          <span v-if="listDetailInfo.info.author"> · {{ listDetailInfo.info.author }}</span>
+          <span v-if="listDetailInfo.info.play_count"> · {{ listDetailInfo.info.play_count }}</span>
+          <span v-if="listDetailInfo.total"> · {{ listDetailInfo.total }} 首</span>
+        </div>
+        <p v-if="listDetailInfo.info.desc" :title="listDetailInfo.info.desc">{{ listDetailInfo.info.desc }}</p>
+        <div :class="$style.actions">
+          <base-btn
+            :class="[$style.headerRightBtn, $style.playBtn]"
+            :disabled="!!listDetailInfo.noItemLabel"
+            @click="playSongListDetail(listDetailInfo.id, listDetailInfo.source, listDetailInfo.list)"
+          >
+            {{ $t('list__play') }}
+          </base-btn>
+          <base-btn
+            outline
+            :class="[$style.headerRightBtn, $style.secondaryBtn]"
+            :disabled="!!listDetailInfo.noItemLabel"
+            @click="addSongListDetail(listDetailInfo.id, listDetailInfo.source, listDetailInfo.info.name)"
+          >
+            {{ $t('list__collect') }}
+          </base-btn>
+          <base-btn
+            outline
+            :class="[$style.headerRightBtn, $style.secondaryBtn]"
+            @click="handleBack"
+          >
+            {{ $t('back') }}
+          </base-btn>
+        </div>
       </div>
     </div>
     <div :class="$style.list">
@@ -161,6 +175,7 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：歌单详情头图对齐 YesPlayMusic（大封面/大标题/按钮在下），无业务变更 */
 .container {
   // position: absolute;
   // left: 0;
@@ -169,33 +184,57 @@ export default {
   // height: 100%;
   display: flex;
   flex-flow: column nowrap;
+  padding-top: 12px;
 }
 
 .songListHeader {
   flex: none;
   display: flex;
   flex-flow: row nowrap;
-  height: 80px;
+  align-items: flex-end;
+  min-height: 180px;
+  padding: 20px 28px 24px;
+  gap: 24px;
+  margin: 0 16px 8px;
+  border-radius: 18px;
+  background: @gradient-detail-header;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  position: relative;
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: -60px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(51, 94, 234, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
 }
 .songListHeaderLeft {
   flex: none;
-  margin-left: 15px;
-  height: 100%;
+  width: 180px;
+  height: 180px;
   aspect-ratio: 1 / 1;
   position: relative;
+  z-index: 1;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 16px;
   background-position: center;
   background-size: cover;
-  opacity: .9;
-  box-shadow: 0 0 2px 0 rgba(0,0,0,.2);
+  background-color: rgba(0, 0, 0, 0.04);
+  opacity: 1;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 .playNum {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 4px;
+  padding: 6px 8px;
   background-color: rgba(0, 0, 0, 0.4);
   color: #fff;
   font-size: 12px;
@@ -205,37 +244,83 @@ export default {
 
 .songListHeaderMiddle {
   flex: auto;
-  padding: 2px 7px;
+  padding: 4px 0 2px;
   min-width: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 1;
+
   h3 {
-    .mixin-ellipsis-1();
-    line-height: 1.2;
-    padding-bottom: 5px;
-    color: var(--color-font);
+    .mixin-ellipsis-2();
+    line-height: 1.25;
+    padding-bottom: 8px;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: rgba(0, 0, 0, 0.9);
   }
   p {
-    .mixin-ellipsis(3);
-    font-size: 12px;
-    line-height: 1.2;
-    color: var(--color-font-label);
+    .mixin-ellipsis(2);
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(0, 0, 0, 0.45);
+    margin: 0 0 16px;
+    max-width: 720px;
   }
 }
-.songListHeaderRight {
-  flex: none;
-  display: flex;
-  align-items: center;
-  padding-right: 15px;
 
-  .headerRightBtn {
-    border-radius: 0;
-    &:first-child {
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-    }
-    &:last-child {
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-    }
+.meta {
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+  .mixin-ellipsis-1();
+}
+
+.actions {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.headerRightBtn {
+  border-radius: 999px !important;
+  padding: 0 20px !important;
+  height: 36px;
+  line-height: 36px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.playBtn {
+  background: @gradient-primary-btn !important;
+  color: #fff !important;
+  min-width: 96px;
+  box-shadow: 0 6px 16px rgba(51, 94, 234, 0.28);
+
+  &:hover {
+    filter: brightness(1.04);
+  }
+  &:active {
+    filter: brightness(0.96);
+  }
+}
+
+.secondaryBtn {
+  background-color: transparent !important;
+  color: rgba(0, 0, 0, 0.72) !important;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+    color: rgba(0, 0, 0, 0.88) !important;
+  }
+  &:active {
+    background-color: rgba(0, 0, 0, 0.07) !important;
   }
 }
 

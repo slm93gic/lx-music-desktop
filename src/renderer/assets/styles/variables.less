@@ -2,11 +2,13 @@
 
 
 // Width
-@width-app-left: 6.6%;
+// 视觉展示调整：侧栏略宽，贴近 Apple Music 浅色壳层节奏，无业务变更
+@width-app-left: 7.2%;
 
 // Height
-@height-toolbar: 54px;
-@height-player: 66px;
+// 视觉展示调整：顶栏高度贴近 YesPlayMusic，无业务变更
+@height-toolbar: 64px;
+@height-player: 72px;
 
 
 // Shadow
@@ -14,11 +16,23 @@
 
 
 // Radius
-@radius-progress-border: 5px;
-@radius-border: 4px;
+// 视觉展示调整：更大圆角贴近 Apple Music，无业务变更
+@radius-progress-border: 999px;
+@radius-border: 12px;
 
-@transition-slow: .6s ease;
-@transition-normal: .4s ease;
-@transition-fast: .3s ease;
+@transition-slow: .45s cubic-bezier(0.25, 0.1, 0.25, 1);
+@transition-normal: .28s cubic-bezier(0.25, 0.1, 0.25, 1);
+@transition-fast: .18s cubic-bezier(0.25, 0.1, 0.25, 1);
 
-@form-radius: 3px;
+@form-radius: 10px;
+
+/* 视觉展示调整：浅色专业渐变令牌（克制蓝白层次），无业务变更 */
+@gradient-page: radial-gradient(ellipse 90% 55% at 8% -8%, rgba(51, 94, 234, 0.09) 0%, transparent 55%),
+  radial-gradient(ellipse 70% 45% at 100% 0%, rgba(90, 140, 255, 0.06) 0%, transparent 50%),
+  linear-gradient(180deg, #f8faff 0%, #ffffff 42%, #f5f7fb 100%);
+@gradient-toolbar: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(247, 250, 255, 0.88) 100%);
+@gradient-player: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(246, 249, 255, 0.94) 100%);
+@gradient-detail-header: radial-gradient(ellipse 70% 120% at 0% 50%, rgba(51, 94, 234, 0.1) 0%, transparent 55%),
+  linear-gradient(115deg, #eef2ff 0%, #f7f9ff 38%, #ffffff 100%);
+@gradient-primary-btn: linear-gradient(135deg, #4d74f0 0%, #335eea 48%, #2a4fd4 100%);
+@gradient-card-shine: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.28) 100%);

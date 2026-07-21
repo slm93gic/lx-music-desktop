@@ -246,6 +246,7 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：下载页对齐列表视觉，无业务变更 */
 .download {
   position: relative;
   overflow: hidden;
@@ -255,10 +256,27 @@ export default {
 
   :global(.list-item) {
     &.active {
-      color: var(--color-button-font);
+      color: var(--color-primary);
+      font-weight: 500;
     }
   }
 }
+
+.header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding: 10px 16px 6px;
+}
+
+.tab {
+  flex: none;
+}
+
+.thead {
+  padding: 0 12px;
+}
+
 .num {
   height: 100%;
   display: flex;
@@ -276,8 +294,8 @@ export default {
   align-items: center;
   justify-content: center;
 
-  color: var(--color-button-font);
-  opacity: .7;
+  color: var(--color-primary);
+  opacity: .85;
 }
 
 .content {
@@ -286,6 +304,7 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   flex: auto;
+  padding: 0 4px 8px;
 }
 
 .noItem {
@@ -297,8 +316,9 @@ export default {
   align-items: center;
 
   p {
-    font-size: 24px;
-    color: var(--color-font-label);
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.28);
   }
 }
 

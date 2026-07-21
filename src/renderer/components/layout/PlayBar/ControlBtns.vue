@@ -54,46 +54,48 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：右侧次要控件弱化，仿 YesPlayMusic，无业务变更 */
 .controlBtn {
-  padding-left: 20px;
-  padding-right: 10px;
+  padding-left: 8px;
+  padding-right: 4px;
   flex: none;
   display: flex;
   flex-flow: row nowrap;
-  gap: 10px;
+  gap: 12px;
+  align-items: center;
 
   button {
-    color: var(--color-button-font);
+    color: rgba(0, 0, 0, 0.42);
   }
 }
 
 .titleBtn {
   flex: none;
   height: 100%;
-  width: 24px;
+  width: 20px;
   transition: @transition-fast;
   transition-property: color, opacity;
-  // color: var(--color-button-font);
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   background-color: transparent;
   border: none;
-  width: 24px;
+  width: 20px;
   padding: 0;
 
-  opacity: .6;
+  opacity: .7;
   cursor: pointer;
 
   svg {
-    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.2));
+    filter: none;
   }
   &:hover {
     opacity: 1;
+    color: var(--color-primary);
   }
   &:active {
-    opacity: 1;
+    opacity: .8;
   }
 }
 

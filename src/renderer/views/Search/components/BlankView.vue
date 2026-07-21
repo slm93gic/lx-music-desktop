@@ -79,6 +79,7 @@ const handleSearch = (text) => {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：搜索空状态与热搜标签，无业务变更 */
 .noitem {
   position: absolute;
   top: 0;
@@ -91,41 +92,46 @@ const handleSearch = (text) => {
   // justify-content: center;
 }
 .noitemListContainer {
-  padding: 3% 15px 15px;
+  padding: 4% 24px 24px;
   // margin-top: -20px;
   min-height: 250px;
   max-height: 94.7%;
 }
 .noitemList {
   +.noitemList {
-    margin-top: 15px;
+    margin-top: 20px;
   }
 }
 .noitemHotSearchList {
   min-height: 106px;
 }
 .noitemListTitle {
-  color: var(--color-font);
-  padding: 5px 5px 8px;
+  color: rgba(0, 0, 0, 0.55);
+  padding: 6px 8px 12px;
   font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 .noitemListItem {
   display: inline-block;
-  margin: 3px 5px;
-  background-color: var(--color-button-background);
-  padding: 7px 10px;
-  border-radius: @radius-progress-border;
-  transition: background-color @transition-normal;
+  margin: 4px 5px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(0, 0, 0, 0.035) 100%);
+  padding: 8px 14px;
+  border-radius: 999px;
+  transition: background-color @transition-fast, color @transition-fast, box-shadow @transition-fast;
   cursor: pointer;
-  color: var(--color-button-font);
+  color: rgba(0, 0, 0, 0.72);
   .mixin-ellipsis-1();
-  max-width: 150px;
+  max-width: 160px;
   font-size: 13px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
   &:hover {
-    background-color: var(--color-button-background-hover);
+    background: linear-gradient(135deg, rgba(51, 94, 234, 0.1) 0%, rgba(51, 94, 234, 0.06) 100%);
+    color: var(--color-primary);
+    box-shadow: inset 0 0 0 1px rgba(51, 94, 234, 0.12);
   }
   &:active {
-    background-color: var(--color-button-background-active);
+    background-color: var(--color-primary-alpha-800);
   }
 }
 .historyClearBtn {
@@ -137,11 +143,11 @@ const handleSearch = (text) => {
   transition-property: color, opacity;
   opacity: .3;
   &:hover {
-    color: var(--color-primary-font-hover);
-    opacity: .8;
+    color: var(--color-primary);
+    opacity: .85;
   }
   &:active {
-    color: var(--color-primary-font-active);
+    color: var(--color-primary);
     opacity: 1;
   }
   svg {
@@ -156,8 +162,9 @@ const handleSearch = (text) => {
   align-items: center;
   justify-content: center;
   p {
-    font-size: 24px;
-    color: var(--color-font-label);
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.28);
     text-align: center;
   }
 }

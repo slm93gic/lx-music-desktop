@@ -87,10 +87,14 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：排行榜左侧导航改为顶部横向，无业务变更 */
 .leaderboard {
   height: 100%;
   display: flex;
+  flex-flow: column nowrap;
   position: relative;
+  min-height: 0;
+  background-color: transparent;
 }
 .header {
   flex: none;
@@ -104,7 +108,8 @@ export default {
 }
 .select {
   flex: none;
-  width: 80px;
+  width: auto;
+  min-width: 110px;
 }
 .content {
   flex: auto;
@@ -115,16 +120,31 @@ export default {
 
 .lists {
   flex: none;
-  width: 14.8%;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 8px;
+  border-right: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background-color: transparent;
+  box-sizing: border-box;
 }
 .listsHeader {
   position: relative;
 }
 
 .listsSelect {
-  font-size: 12px;
+  font-size: 13px;
+  margin-bottom: 0;
+  padding: 0;
+  border-bottom: none;
+  flex: none;
+  width: 120px;
+  min-width: 100px;
 
   &:hover {
     :global(.icon) {
@@ -137,41 +157,46 @@ export default {
     width: 100%;
   }
   :global(.label-content) {
-    background-color: transparent !important;
-    line-height: 38px;
-    height: 38px;
-    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0.04) !important;
+    line-height: 34px;
+    height: 34px;
+    border-radius: 999px;
+    padding: 0 12px;
+    transition: background-color @transition-fast;
     &:hover {
-      background: none !important;
+      background-color: rgba(0, 0, 0, 0.06) !important;
     }
   }
   :global(.label) {
-    color: var(--color-font) !important;
+    color: rgba(0, 0, 0, 0.78) !important;
+    font-weight: 600;
   }
   :global(.icon) {
-    opacity: .6;
+    opacity: .55;
     transition: opacity .3s ease;
+    color: var(--color-primary);
   }
 
   :global(.selection-list) {
     max-height: 500px;
-    box-shadow: 0 1px 8px 0 rgba(0,0,0,.2);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     li {
       // background-color: var(--color-main-background);
       line-height: 38px;
       font-size: 13px;
       &:hover {
-        background-color: var(--color-button-background-hover);
+        background-color: rgba(0, 0, 0, 0.04);
       }
       &:active {
-        background-color: var(--color-button-background-active);
+        background-color: var(--color-primary-alpha-900);
+        color: var(--color-primary);
       }
     }
   }
   // line-height: 38px;
   // padding: 0 10px;
-  border-bottom: var(--color-list-header-border-bottom);
-  flex: none;
 }
 
 .list {
@@ -179,8 +204,11 @@ export default {
   overflow: hidden;
   height: 100%;
   flex: auto;
+  min-width: 0;
+  min-height: 0;
   display: flex;
   flex-flow: column nowrap;
+  padding: 0 4px;
   // .noItem {
 
   // }

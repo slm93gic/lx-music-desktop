@@ -363,26 +363,32 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：歌曲列表行高亮与空状态，无业务变更 */
 .list {
   overflow: hidden;
   height: 100%;
   flex: auto;
   display: flex;
   flex-flow: column nowrap;
+  padding: 4px 12px 12px;
 
   :global(.list-item) {
     &.active {
-      color: var(--color-button-font);
+      color: var(--color-primary);
+      font-weight: 600;
     }
   }
   :global {
     .label-source {
       color: var(--color-primary);
-      padding: 5px;
-      font-size: .8em;
+      padding: 3px 6px;
+      font-size: .75em;
       line-height: 1.2;
-      opacity: .75;
+      opacity: .7;
       display: inline-block;
+      border-radius: 6px;
+      background-color: var(--color-primary-alpha-900);
+      margin-left: 6px;
     }
   }
 }
@@ -403,8 +409,8 @@ export default {
   align-items: center;
   justify-content: center;
 
-  color: var(--color-button-font);
-  opacity: .7;
+  color: var(--color-primary);
+  opacity: .9;
 }
 .content {
   min-height: 0;
@@ -423,8 +429,9 @@ export default {
   align-items: center;
 
   p {
-    font-size: 24px;
-    color: var(--color-font-label);
+    font-size: 20px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.28);
   }
 }
 

@@ -201,25 +201,30 @@ export default {
 <style lang="less" module>
 @import '@renderer/assets/styles/layout.less';
 
+/* 视觉展示调整：搜索框圆角填充贴近 Apple Music，无业务变更 */
+/* 视觉展示调整：顶栏搜索宽度适配横向导航，无业务变更 */
 .container {
   position: relative;
-  width: 35%;
-  height: @height-toolbar * 0.52;
+  width: 220px;
+  max-width: 280px;
+  min-width: 160px;
+  height: @height-toolbar * 0.58;
   -webkit-app-region: no-drag;
 }
 
 .search {
   position: absolute;
   width: 100%;
-  border-radius: @form-radius;
-  transition: box-shadow .4s ease, background-color @transition-normal;
+  border-radius: 999px;
+  transition: box-shadow @transition-fast, background-color @transition-normal;
   display: flex;
   flex-flow: column nowrap;
-  background-color: var(--color-primary-light-300-alpha-700);
+  background-color: rgba(0, 0, 0, 0.05);
 
   &.active {
-    background-color: var(--color-primary-light-600-alpha-100);
-    box-shadow: 0 1px 5px 0 rgba(0,0,0,.2);
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
     .form {
       input {
         border-bottom-left-radius: 0;
@@ -232,13 +237,13 @@ export default {
   }
   .form {
     display: flex;
-    height: @height-toolbar * 0.52;
+    height: @height-toolbar * 0.58;
     position: relative;
     input {
       flex: auto;
       // border: 1px solid;
-      border-top-left-radius: 3px;
-      border-bottom-left-radius: 3px;
+      border-top-left-radius: 999px;
+      border-bottom-left-radius: 999px;
       background-color: transparent;
       // border-bottom: 2px solid var(--color-primary);
       // border-color: var(--color-primary);
@@ -247,12 +252,13 @@ export default {
 
       outline: none;
       // height: @height-toolbar * .7;
-      padding: 0 5px;
+      padding: 0 12px;
       overflow: hidden;
-      font-size: 13.5px;
-      line-height: @height-toolbar * 0.52 + 5px;
+      font-size: 13px;
+      line-height: @height-toolbar * 0.58 + 5px;
+      color: var(--color-font);
       &::placeholder {
-        color: var(--color-button-font);
+        color: rgba(0, 0, 0, 0.35);
         font-size: .98em;
       }
     }
@@ -264,20 +270,22 @@ export default {
       outline: none;
       cursor: pointer;
       height: 100%;
-      padding: 6px 7px;
-      color: var(--color-button-font);
-      transition: background-color .2s ease;
+      padding: 6px 10px;
+      color: rgba(0, 0, 0, 0.45);
+      transition: background-color @transition-fast, color @transition-fast;
 
       &:last-child {
-        border-top-right-radius: 3px;
-        border-bottom-right-radius: 3px;
+        border-top-right-radius: 999px;
+        border-bottom-right-radius: 999px;
       }
 
       &:hover {
-        background-color: var(--color-button-background-hover);
+        color: var(--color-primary);
+        background-color: transparent;
       }
       &:active {
-        background-color: var(--color-button-background-active);
+        opacity: .7;
+        background-color: transparent;
       }
     }
   }
@@ -290,19 +298,19 @@ export default {
     overflow: hidden;
     li {
       cursor: pointer;
-      padding: 8px 5px;
-      transition: background-color .2s ease;
+      padding: 10px 12px;
+      transition: background-color @transition-fast;
       line-height: 1.3;
       span {
         .mixin-ellipsis-2();
       }
 
       &.select {
-        background-color: var(--color-primary-dark-100-alpha-700);
+        background-color: rgba(0, 0, 0, 0.05);
       }
       &:last-child {
-        border-bottom-left-radius: 3px;
-        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 14px;
+        border-bottom-right-radius: 14px;
       }
     }
   }

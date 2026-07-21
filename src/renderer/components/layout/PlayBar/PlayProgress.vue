@@ -136,6 +136,7 @@ export default {
   padding-bottom: 3px;
 }
 
+/* 视觉展示调整：迷你进度条配色，无业务变更 */
 .progress {
   position: absolute;
   top: 100%;
@@ -148,17 +149,18 @@ export default {
   // padding-bottom: 6px;
   // margin: 0 8px;
   height: 2px;
-  opacity: .24;
+  opacity: .5;
   overflow: hidden;
   transition: @transition-normal;
   transition-property: background-color, opacity;
-  background-color: var(--color-primary-light-100-alpha-800);
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: @radius-progress-border;
 
   .progressBar {
     height: 100%;
     width: 100%;
     // position: absolute;
-    background-color: var(--color-primary-light-100-alpha-400);
+    background-color: var(--color-primary);
     // left: 0;
     // top: 0;
     transform-origin: 0;
